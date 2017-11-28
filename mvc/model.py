@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from observer import Observable, IObserver
-from zope.interface import implementer
+from .observer import Observable
 import math
 
 def convertir(chaine) :
@@ -29,7 +28,7 @@ class CalculatorModel(Observable) :
         self.operande = ""
         self.operateur = ''
         self.notify('reset',
-                    display=self.operande,
+                    display=self.result,
                     result=self.result,
                     operande=self.operande,
                     operateur=self.operateur

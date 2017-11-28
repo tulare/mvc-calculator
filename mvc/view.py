@@ -2,7 +2,7 @@
 
 import tkinter as Tk
 from zope.interface import implementer
-from observer import IObserver
+from .observer import IObserver
 
 class CalculatorView :
 

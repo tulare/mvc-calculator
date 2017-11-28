@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-from mvc_model import CalculatorModel
-from mvc_view import CalculatorView
-from mvc_controller import CalculatorController
+from mvc.model import CalculatorModel
+from mvc.view import CalculatorView
+from mvc.controller import CalculatorController
 
 model = CalculatorModel()
 view = CalculatorView()
