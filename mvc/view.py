@@ -1,10 +1,16 @@
 # -*- encoding: utf-8 -*-
 
-import tkinter as Tk
+# python 2/3 compatibility
+from __future__ import (
+    absolute_import, print_function, division,
+    unicode_literals
+    )
+
 from zope.interface import implementer
 from .observer import IObserver
+import six.moves.tkinter as Tk
 
-class CalculatorView :
+class CalculatorView(object) :
 
     def __init__(self) :
         self.root = Tk.Tk()
@@ -25,7 +31,7 @@ class CalculatorView :
         
 
 @implementer(IObserver)
-class DisplayPanel :
+class DisplayPanel(object) :
 
     def __init__(self, parent) :
 
@@ -46,7 +52,7 @@ class DisplayPanel :
         self.result.config(text=str(kwargs['display']))
 
 
-class KeyboardPanel :
+class KeyboardPanel(object) :
 
     def __init__(self, parent) :
         self.frame = Tk.LabelFrame(parent)
@@ -57,10 +63,12 @@ class KeyboardPanel :
 
     @property
     def buttons(self) :
-        return { **self.numbers.buttons, **self.operators.buttons }
+        dict_buttons = dict(self.numbers.buttons)
+        dict_buttons.update(self.operators.buttons)
+        return dict_buttons
 
 
-class LayoutPanel :
+class LayoutPanel(object) :
 
     layout = []
     frame = None

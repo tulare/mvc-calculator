@@ -24,7 +24,7 @@ class IObservable(Interface) :
         """Notify all observers of this observable with theses arguments"""
 
 @implementer(IObservable)
-class Observable :
+class Observable(object) :
 
     def __init__(self) :
         self.observers = set()

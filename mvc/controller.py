@@ -1,6 +1,12 @@
 # -*- encoding: utf-8 -*-
 
-class CalculatorController :
+# python 2/3 compatibility
+from __future__ import (
+    absolute_import, print_function, division,
+    unicode_literals
+    )
+
+class CalculatorController(object) :
 
     def __init__(self, model, view) :
         self.model, self.view = model, view
@@ -21,9 +27,9 @@ class CalculatorController :
         return lambda : self.action(button)
 
     def action(self, button) :
-        if button in '0123456789.' :
+        if button in "0123456789." :
             self.model.setNombre(button)
 
-        if button in '+-*/=' :
+        if button in "+-*/=" :
             self.model.setOperateur(button)
 

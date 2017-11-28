@@ -1,5 +1,11 @@
 # -*- encoding: utf-8 -*-
 
+# python 2/3 compatibility
+from __future__ import (
+    absolute_import, print_function, division,
+    unicode_literals
+    )
+
 from .observer import Observable
 import math
 
@@ -20,9 +26,10 @@ class CalculatorModel(Observable) :
     operateur = ''
 
     def __init__(self) :
-        super().__init__()
+        # super().__init__()
+        # ensure python 2/3 compatibility
+        super(CalculatorModel, self).__init__()
         
-
     def reset(self) :
         self.result = 0
         self.operande = ""
