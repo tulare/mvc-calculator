@@ -7,29 +7,33 @@ from __future__ import (
     )
 
 class CalculatorController(object) :
+    """A controller that manages events between calculator view and model"""
 
     def __init__(self, model, view) :
+        """Creates a controller that behaves as a medium between model and view"""
+        
         self.model, self.view = model, view
-        self.bind_model()
-        self.bind_view()
+
+        # register calculator display to observe model
+        self.model.register(self.view.display)
+
+        # connect calculator buttons to controller
+        for button in self.view.buttons :
+            button.config(command=self.bind(button))
 
     def run(self) :
+        """Starts the controller"""
         self.view.mainloop()
 
-    def bind_model(self) :
-        self.model.register(self.view.display)
-    
-    def bind_view(self) :
-        for button in self.view.buttons :
-            self.view.buttons[button].config(command=self.bind(button))
-        
     def bind(self, button) :
-        return lambda : self.action(button)
+        """Callback for binding calculator buttons with controller actions"""
+        return lambda : self.action(button['text'])
 
-    def action(self, button) :
-        if button in "0123456789." :
-            self.model.setNombre(button)
+    def action(self, key) :
+        """Controller action for each calculator key"""
+        if key in "0123456789." :
+            self.model.setNombre(key)
 
-        if button in "+-*/=" :
-            self.model.setOperateur(button)
+        if key in "+-*/=" :
+            self.model.setOperateur(key)
 
