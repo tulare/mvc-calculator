@@ -10,7 +10,7 @@ from zope.interface import implementer
 from .observer import IObserver
 import six.moves.tkinter as Tk
 
-class CalculatorView(Tk.Tk) :
+class CalculatorView(Tk.Tk, object) :
 
     def __init__(self, *args, **kwargs) :
         super(CalculatorView, self).__init__(*args, **kwargs)
@@ -27,7 +27,7 @@ class CalculatorView(Tk.Tk) :
         return CalculatorButton.instances
         
 
-class CalculatorFrame(Tk.Frame) :
+class CalculatorFrame(Tk.Frame, object) :
 
     def __init__(self, parent, *args, **kwargs) :
         super(CalculatorFrame, self).__init__(*args, **kwargs)
@@ -37,7 +37,7 @@ class CalculatorFrame(Tk.Frame) :
 
 
 @implementer(IObserver)
-class DisplayPanel(Tk.LabelFrame) :
+class DisplayPanel(Tk.LabelFrame, object) :
 
     def __init__(self, parent, *args, **kwargs) :
         super(DisplayPanel, self).__init__(parent, *args, **kwargs)
@@ -56,7 +56,7 @@ class DisplayPanel(Tk.LabelFrame) :
         self.result.config(text=str(kwargs['display']))
 
 
-class KeyboardPanel(Tk.LabelFrame) :
+class KeyboardPanel(Tk.LabelFrame, object) :
 
     def __init__(self, parent, *args, **kwargs) :
         super(KeyboardPanel, self).__init__(parent, *args, **kwargs)
@@ -118,7 +118,7 @@ class OperatorsPanel(Tk.LabelFrame, LayoutPanel) :
         self.placement(bg='white', fg='purple')
         
 
-class CalculatorButton(Tk.Button) :
+class CalculatorButton(Tk.Button, object) :
 
     instances = []
 
