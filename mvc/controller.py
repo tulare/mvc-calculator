@@ -6,6 +6,8 @@ from __future__ import (
     unicode_literals
     )
 
+KEY_TRANS = str.maketrans({'<' : '', '>' : ''})
+
 class CalculatorController(object) :
     """A controller that manages events between calculator view and model"""
 
@@ -14,23 +16,22 @@ class CalculatorController(object) :
         
         self.model, self.view = model, view
 
-        # register calculator display to observe model
-        self.model.register(self.view.display)
+        # configure calculator display to observe model
+        self.model.add_observer(self.view.display)
 
         # connect calculator buttons to controller
-        for button in self.view.buttons :
-            button.config(command=self.bind(button))
+        self.view.bind('<<CalculatorButton>>', self.key_action)
 
     def run(self) :
         """Starts the controller"""
         self.view.mainloop()
 
-    def bind(self, button) :
-        """Callback for binding calculator buttons with controller actions"""
-        return lambda : self.action(button['text'])
-
-    def action(self, key) :
+    def key_action(self, event) :
         """Controller action for each calculator key"""
+        widget = event.widget
+        print('key_action :', widget.tag)
+        key = widget.tag.translate(KEY_TRANS)
+        
         if key in "0123456789." :
             self.model.setNombre(key)
 

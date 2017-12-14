@@ -7,7 +7,7 @@ from __future__ import (
     )
 
 from zope.interface import implementer
-from .observer import IObserver
+from mvc.observer import IObserver
 import six.moves.tkinter as Tk
 
 class CalculatorView(Tk.Tk, object) :
@@ -21,11 +21,7 @@ class CalculatorView(Tk.Tk, object) :
     @property
     def display(self) :
         return self.frame.display
-        
-    @property
-    def buttons(self) :
-        return CalculatorButton.instances
-        
+                
 
 class CalculatorFrame(Tk.Frame, object) :
 
@@ -52,8 +48,10 @@ class DisplayPanel(Tk.LabelFrame, object) :
                         )
         self.result.pack(fill=Tk.X, expand=1, padx='0.5m', pady='0.5m')
 
-    def update(self, *args, **kwargs) :
-        self.result.config(text=str(kwargs['display']))
+    def action(self, *args, **kwargs) :
+        print(args, kwargs)
+        if 'display' in args :
+            self.result.config(text=str(kwargs['value']))
 
 
 class KeyboardPanel(Tk.LabelFrame, object) :
@@ -78,6 +76,7 @@ class LayoutPanel(object) :
             for button in button_group :
                 CalculatorButton(
                     group,
+                    tag='<'+button+'>',
                     text=button,
                     bg=bg, fg=fg,
                     width=width, height=height
@@ -120,8 +119,14 @@ class OperatorsPanel(Tk.LabelFrame, LayoutPanel) :
 
 class CalculatorButton(Tk.Button, object) :
 
-    instances = []
+    def __init__(self, master=None, tag=None, *args, **kwargs) :
+        super(CalculatorButton, self).__init__(master, *args, **kwargs)
+        self.config(command=self.action)
+        self._tag = tag
 
-    def __init__(self, parent, *args, **kwargs) :
-        super(CalculatorButton, self).__init__(parent, *args, **kwargs)
-        CalculatorButton.instances.append(self)
+    def action(self) :
+        self.event_generate('<<CalculatorButton>>')
+
+    @property
+    def tag(self) :
+        return self._tag

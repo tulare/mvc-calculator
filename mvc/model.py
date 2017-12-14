@@ -6,7 +6,7 @@ from __future__ import (
     unicode_literals
     )
 
-from .observer import Observable
+from mvc.observer import Observable
 import math
 
 def convertir(chaine) :
@@ -34,12 +34,7 @@ class CalculatorModel(Observable) :
         self.result = 0
         self.operande = ""
         self.operateur = ''
-        self.notify('reset',
-                    display=self.result,
-                    result=self.result,
-                    operande=self.operande,
-                    operateur=self.operateur
-                    )
+        self.notify('display', value=self.result)
         
     def setNombre(self, digit) :
         # entrée d'un nouveau nombre après calcul résultat
@@ -53,13 +48,7 @@ class CalculatorModel(Observable) :
             if self.operande + digit == "." :
                 self.operande = "0."
                 
-        self.notify('setNombre', digit,
-                    display=self.operande,
-                    result=self.result,
-                    operande=self.operande,
-                    operateur=self.operateur
-                    )
-
+        self.notify('display', value=self.operande)
 
     def setOperateur(self, operateur) :
         # calcul intermédiaire
@@ -96,9 +85,4 @@ class CalculatorModel(Observable) :
                     self.result = math.nan
 
         self.operande = ""
-        self.notify('calcul',
-                    display=self.result,
-                    result=self.result,
-                    operateur=self.operateur,
-                    operande=self.operande
-                    )
+        self.notify('display', value=self.result)
