@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 
+print('mvc\\observer.py')
+
 from zope.interface import Interface, Attribute, implementer
 
 class IObserver(Interface) :

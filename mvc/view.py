@@ -6,6 +6,8 @@ from __future__ import (
     unicode_literals
     )
 
+print('mvc\\view.py')
+
 from zope.interface import implementer
 from mvc.observer import IObserver
 import six.moves.tkinter as Tk
@@ -130,3 +132,4 @@ class CalculatorButton(Tk.Button, object) :
     @property
     def tag(self) :
         return self._tag
+

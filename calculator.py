@@ -1,14 +1,9 @@
-# -*- encoding: utf-8 -*-
+print('\\calculator.py')
 
-from mvc.model import CalculatorModel
-from mvc.view import CalculatorView
-from mvc.controller import CalculatorController
+from mvc import calculatorRun
 
 def main() :
-    model = CalculatorModel()
-    view = CalculatorView()
-    controller = CalculatorController(model, view)
-    controller.run()
+    calculatorRun()
 
 if __name__ == '__main__' :
     main()

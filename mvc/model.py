@@ -6,7 +6,9 @@ from __future__ import (
     unicode_literals
     )
 
-from mvc.observer import Observable
+print('mvc\\model.py')
+
+from .observer import Observable
 import math
 
 def convertir(chaine) :

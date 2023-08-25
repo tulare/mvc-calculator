@@ -6,6 +6,8 @@ from __future__ import (
     unicode_literals
     )
 
+print('mvc\\controller.py')
+
 KEY_TRANS = str.maketrans({'<' : '', '>' : ''})
 
 class CalculatorController(object) :
